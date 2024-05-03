@@ -3765,7 +3765,7 @@ prometheus:
     additionalScrapeConfigs: 
       - job_name: nvidia
         static-configs:
-          - targets: ["http://localhost:9835"]
+          - targets: ["http://localhost:9835/metrics"]
 
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
