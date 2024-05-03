@@ -3766,7 +3766,9 @@ prometheus:
       - job_name: nvidia
         static-configs:
           - targets: ["http://localhost:9835/metrics"]
-
+      - job_name: nv1 
+        static-configs:
+          - targets: ["http://localhost:9400/metrics"]
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
