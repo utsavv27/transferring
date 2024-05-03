@@ -3535,7 +3535,7 @@ prometheus:
     ## prometheus resource to be created with selectors based on values in the helm deployment,
     ## which will also match the servicemonitors created
     ##
-    serviceMonitorSelectorNilUsesHelmValues: true
+    serviceMonitorSelectorNilUsesHelmValues: false
 
     ## ServiceMonitors to be selected for target discovery.
     ## If {}, select all ServiceMonitors
@@ -3763,12 +3763,22 @@ prometheus:
     ## port to 2379 and allow etcd scraping provided it is running on all Kubernetes master nodes
     ##
     additionalScrapeConfigs: 
-      - job_name: nvidia
-        static-configs:
-          - targets: ["http://localhost:9835/metrics"]
-      - job_name: nv1 
-        static-configs:
-          - targets: ["http://localhost:9400/metrics"]
+      - job_name: gpu-metrics
+        scrape_interval: 1s
+        metrics_path: /metrics
+        scheme: http
+        kubernetes_sd_configs:
+        - role: endpoints
+          namespaces:
+            names:
+            - gpu-operator
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_endpoints_name]
+          action: drop
+          regex: .*-node-feature-discovery-master
+        - source_labels: [__meta_kubernetes_pod_node_name]
+          action: replace
+          target_label: kubernetes_node
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
