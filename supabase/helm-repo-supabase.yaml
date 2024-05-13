@@ -4,5 +4,5 @@ metadata:
   name: helm-repo-supabase
   namespace: supabase
 spec: 
-  interval: 1m
-  url:  https://charts.bitnami.com/bitnami
+  interval: 5m
+  url: https://improwised.github.io/charts/
