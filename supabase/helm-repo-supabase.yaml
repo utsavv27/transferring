@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: helm-repo-supabase
+  name: helm-repo-supabase  
   namespace: supabase
 spec: 
   interval: 5m
